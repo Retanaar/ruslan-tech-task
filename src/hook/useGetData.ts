@@ -25,15 +25,16 @@ function useGetData(): CachedData {
       const sortedData = sortServerData(ServerData);  
       data = {
         savedTime: currentDate.getTime(),
-        data: sortServerData(ServerData),
-        indexedByName: getIndexedArrayByProperty(sortedData, 'name'),
+        data: sortedData,
+        indexedByName: (searchMethodFeatureFlag === "FullNameIndex") ? 
+          getIndexedArrayByProperty(sortedData, 'name') : getPartialIndexedArrayForName(sortedData),
         indexedByType: getIndexedArrayByProperty(sortedData, 'type')
       };
       
       localStorage.setItem(localStorageKey, JSON.stringify(data));
     } else {
       data = JSON.parse(dataStr);
-      if (data.savedTime < currentDate.getTime() + cacheTimeout) {
+      if (data.savedTime + cacheTimeout < currentDate.getTime()) {
         localStorage.clear();
         data.data = sortServerData(ServerData);
         data.savedTime = currentDate.getTime();
