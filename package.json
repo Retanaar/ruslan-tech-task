@@ -1,18 +1,18 @@
 {
-  "name": "tech-interview-with-ruslan",
-  "version": "1.0.0",
-  "description": "",
-  "keywords": [],
-  "main": "src/index.tsx",
+  "name": "intest",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "lodash": "4.17.21",
     "react": "18.0.0",
     "react-dom": "18.0.0",
+    "react-paginate": "^8.2.0",
     "react-redux": "8.0.5",
     "react-scripts": "4.0.3",
     "redux": "4.2.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.195",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "typescript": "4.4.2"
@@ -20,13 +20,28 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "resolutions": {
+    "styled-components": "^5"
+  }
 }

@@ -1,8 +1,10 @@
-import _data from "../dataSource";
+import _data from "../dataSource.json";
 type Market = "US" | "CH" | "EU" | "IN";
 type ItemType = "PRIVATE" | "OFFCHAIN" | "ONCHAIN";
 
-interface Model {
+export const searchMethodFeatureFlag: 'FullNameIndex' | 'PartialNameIndex' = "PartialNameIndex";
+
+export interface Model {
   id: number;
   i: {
     type: ItemType;
@@ -19,11 +21,13 @@ interface Model {
   market: Market;
 }
 
-const data = _data as Model[];
+export const data = _data as Model[];
 
-const marketPriority: Record<number, Market> = {
-  1: "US",
-  2: "CH",
-  3: "EU",
-  4: "IN"
+export const marketPriority: Record<Market, number> = {
+  US: 1,
+  CH: 2,
+  EU: 3,
+  IN: 4
 };
+
+

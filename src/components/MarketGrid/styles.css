@@ -1,0 +1,4 @@
+.scrolling-container {
+    height: calc(100vh - 13rem); 
+    overflow: auto;
+  }

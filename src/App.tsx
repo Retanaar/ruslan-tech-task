@@ -26,13 +26,54 @@
 //// grey - if price the same,
 //// green - if price higher than lastTradedPrevious
 
-import Search from "./components/Search";
+
+import { useState } from 'react'
 import "./styles.css";
+import useSearchService from "./hook/useSearchService";
+import { Search } from './components/Search';
+import MarketGrid from './components/MarketGrid';
+import ReactPaginate from 'react-paginate';
+
 
 export default function App() {
+  const [search, setSearch] = useState<string>('');
+  const [page, setPage] = useState<number>(1);
+
+  const searchResult = useSearchService({
+    search,
+    page
+  });
+
+  function handlePageClick(selectedItem: { selected: number; }): void {
+    setPage(selectedItem.selected + 1);
+  }
+
   return (
     <div className="App">
-      <Search />
+      <Search search={search} setSearch={setSearch} />
+      <div className='Total'>Total: {searchResult.totalItems}</div>
+      <MarketGrid markets={searchResult.result} />
+      <div className='Paginated'>
+        <ReactPaginate
+          previousLabel="Previous"
+          nextLabel="Next"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          pageCount={searchResult.totalPages}
+          marginPagesDisplayed={2}
+          pageRangeDisplayed={15}
+          onPageChange={handlePageClick}
+          containerClassName="pagination"
+          activeClassName="active"
+        />      
+      </div>
     </div>
   );
 }
